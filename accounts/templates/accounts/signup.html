@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+
+{% block content %}
+<div class="container">
+    <form method="POST">
+        {% csrf_token %}
+        {# {% bootstrap_form form %}#}
+
+        {{ form.non_field_errors }}
+<div class="fieldWrapper">
+    {{ form.username.errors }}
+    <label for="{{ form.username.id_for_label }}" style="color:#fff;">Username :</label>
+    {{ form.username }}
+</div>
+<div class="fieldWrapper">
+    {{ form.email.errors }}
+    <label for="{{ form.email.id_for_label }}" style="color:#fff;">Email :</label>
+    {{ form.email }}
+</div>
+<div class="fieldWrapper">
+    {{ form.password1.errors }}
+    <label for="{{ form.password1.id_for_label }}" style="color:#fff;">Password :</label>
+    {{ form.password1 }}
+</div>
+<div class="fieldWrapper">
+    {{ form.password2.errors }}
+    <label for="{{ form.password2.id_for_label }}" style="color:#fff;">Confirm Password :</label>
+    {{ form.password2 }}
+</div>
+
+        <input type="submit" value="Sign Up" class="btn btn-default">
+    </form>
+</div>
+{% endblock %}
