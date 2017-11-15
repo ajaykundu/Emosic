@@ -93,12 +93,12 @@ form button:hover {background-color:#111111;}
 form input:focus { background-color: rgba(255,255,255,.4); }
 
 form input.email {
-  background-image: url(data:image/png;
+  background-image: url('data:image/png');
   background-position: 220px 10px;
 }
 
 form input.pass {
-  background-image: url(data:image/png;
+  background-image: url('data:image/png');
   background-position: 223px 8px
 }
 
@@ -159,4 +159,8 @@ boder-radius:50%;
 }
 .social-icons .fa-google-plus-official:hover {
   color:#D13D2F;
+}
+.camera1
+{
+  position:relative;
 }

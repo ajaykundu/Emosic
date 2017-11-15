@@ -11,7 +11,7 @@ import glob
 import random
 import numpy as np
 
-emotions = ["neutral", "anger", "disgust", "happy", "sadness", "surprise"] #Emotion list
+emotions = ["anger", "sadness", "happy"] #Emotion list
 fishface = cv2.face.LBPHFaceRecognizer_create()#Initialize fisher face classifie
 
 data = {}
@@ -66,7 +66,6 @@ def call_predict():
     for image in prediction_data:
         print(image)
         pred,conf = fishface.predict(image)
-        print(prediction_labels[cnt])
-        cnt += 1
+        print(pred)
         print(emotions[pred])
         print(conf)

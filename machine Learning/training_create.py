@@ -11,7 +11,7 @@ import glob
 import random
 import numpy as np
 
-emotions = ["neutral", "anger", "contempt", "disgust", "fear", "happy", "sadness", "surprise"] #Emotion list
+emotions = ["anger", "sadness", "happy"] #Emotion list
 fishface = cv2.face.LBPHFaceRecognizer_create()#Initialize fisher face classifier
 
 data = {}

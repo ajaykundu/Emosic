@@ -16,10 +16,10 @@ faceDet_four = cv2.CascadeClassifier("haarcascade_frontalface_alt_tree.xml")
 emotions = ["neutral", "anger", "contempt", "disgust", "fear", "happy", "sadness", "surprise","extra"] #Define emotions
 
 def detect_faces(emotion):
-    files = glob.glob("dataset\\%s\\*" %emotion) #Get list of all images with emotion
+    files = glob.glob("datasetNew\\%s\\*" %emotion) #Get list of all images with emotion
     print(emotion)
 
-    filenumber = 0
+    filenumber = 1000
     for f in files:
         frame = cv2.imread(f) #Open image
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) #Convert image to grayscale
@@ -51,12 +51,11 @@ def detect_faces(emotion):
             
             try:
                 out = cv2.resize(gray, (350, 350)) #Resize face so all images have same size
-                cv2.imwrite("dataset\\%s\\%s.jpg" %(emotion, filenumber), out) #Write image
+                print('try kar raha h')
+                cv2.imwrite("datasetNew\\%s\\%s.jpg" %('anger', filenumber), out) #Write image
             except:
-               pass #If error, pass file
+               print('hello') #If error, pass file
         filenumber += 1 #Increment image number
 
-detect_faces("extra")
+detect_faces("angertest")
 
-for emotion in emotions: 
-    detect_faces(emotion) #Call functiona
