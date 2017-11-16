@@ -29,16 +29,13 @@ def run_recognizer():
     print("training fisher face classifier")
     print("size of training set is:", len(training_labels), "images")
     fishface.train(training_data, np.asarray(training_labels))
-
     print("predicting classification set")
+    print(len(prediction_labels))
     cnt = 0
     correct = 0
     incorrect = 0
     for image in prediction_data:
         pred, conf = fishface.predict(image)
-        print(EMOTIONS[pred])
-        print(conf)
-        
         if pred == prediction_labels[cnt]:
             correct += 1
             cnt += 1
@@ -49,7 +46,7 @@ def run_recognizer():
 
 #Now run it
 metascore = []
-for i in range(0,10):
+for i in range(0,3):
     correct = run_recognizer()
     print("got", correct, "percent correct!")
     metascore.append(correct)

@@ -66,13 +66,14 @@ def data_to_image(data):
     data_image = format_image(data_image)
     return data_image
 
-FILE_PATH = 'fer2013test.csv'
+FILE_PATH = 'fer2013test1.csv'
 data = pd.read_csv(FILE_PATH)
 
 labels = []
 images = []
 index = 1
 total = data.shape[0]
+
 for index, row in data.iterrows():
   if row['emotion']==0 or row['emotion']==3 or row['emotion']==4:
     emotion = emotion_to_int(row['emotion'])

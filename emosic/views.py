@@ -1,5 +1,5 @@
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,HttpResponse
 from django.views.generic import TemplateView
 
 class TestPage(TemplateView):
@@ -17,3 +17,5 @@ class HomePage(TemplateView):
         else :
             return HttpResponseRedirect(reverse("login"))
         return super().get(request, *args, **kwargs)
+
+from django.views.decorators.csrf import csrf_exempt

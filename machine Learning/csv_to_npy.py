@@ -77,6 +77,7 @@ total = data.shape[0]
 for index, row in data.iterrows():
   if row['emotion']==0 or row['emotion']==3 or row['emotion']==4:
     emotion = emotion_to_int(row['emotion'])
+    print(emotion)
     image = data_to_image(row['pixels'])
     if image is not None:
         labels.append(emotion)
