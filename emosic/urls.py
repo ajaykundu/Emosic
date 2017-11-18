@@ -16,6 +16,9 @@ Including another URLconf
 from django.conf.urls import url,include
 from django.contrib import admin
 from . import views
+from django.conf.urls.static import static
+from django.conf import settings
+
 
 urlpatterns = [
      url(r'^admin/', admin.site.urls),
@@ -24,4 +27,5 @@ urlpatterns = [
      url(r"^thanks/$", views.ThanksPage.as_view(), name="thanks"),
      url(r"^accounts/", include("accounts.urls", namespace="accounts")),
      url(r"^accounts/", include("django.contrib.auth.urls")),
-]
+     url(r"^user/",views.save_image,name="user"),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

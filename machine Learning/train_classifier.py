@@ -14,11 +14,11 @@ def get_data(): #Define function to get file list, randomly shuffle it and split
     images=np.load('data_train.npy')
     labels= np.load('labels_train.npy')
     images_test = np.load('data_test.npy')
+    images_test = images_test[:300]
     labels_test = np.load('labels_test.npy')
+    labels_test = labels_test[:300]
     images=images.reshape([-1, SIZE_FACE, SIZE_FACE, 1])
     images_test = images_test.reshape([-1, SIZE_FACE, SIZE_FACE, 1])
-    #labels      = labels.reshape([-1, len(EMOTIONS)])
-    #labels_test = labels_test.reshape([-1, len(EMOTIONS)])
     return images,labels,images_test,labels_test
 
 
@@ -29,13 +29,13 @@ def run_recognizer():
     print("training fisher face classifier")
     print("size of training set is:", len(training_labels), "images")
     fishface.train(training_data, np.asarray(training_labels))
-    print("predicting classification set")
-    print(len(prediction_labels))
+    print("predicting classification set: ",len(prediction_labels))
     cnt = 0
     correct = 0
     incorrect = 0
     for image in prediction_data:
         pred, conf = fishface.predict(image)
+        print(EMOTIONS[pred])
         if pred == prediction_labels[cnt]:
             correct += 1
             cnt += 1
@@ -46,7 +46,7 @@ def run_recognizer():
 
 #Now run it
 metascore = []
-for i in range(0,3):
+for i in range(0,1):
     correct = run_recognizer()
     print("got", correct, "percent correct!")
     metascore.append(correct)

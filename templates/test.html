@@ -1,74 +1,57 @@
 {% extends "base.html" %}
 {% block content %}
+<table><tr><td valign=top>
+	<h1>JPEGCam Test Page</h1>
 
-<h1 >take pic here</h1>
-<div class="camera1" style="position:relative;">
-  <video id="video"></video>
-  <button id="startbutton" style="color:white">Take photo</button>
-  <canvas id="canvasbac"></canvas>
-</div>
+	<!-- First, include the JPEGCam JavaScript Library -->
+	<script type="text/javascript" src="/static/jpegcam/webcam.js"></script>
 
-<!--<img id="photo" alt="photo">-->
-<script id="jsbin-javascript">
-(function() {
+	<!-- Configure a few settings -->
+	<script language="JavaScript">
+		webcam.set_api_url( '/user/' );
+		webcam.set_quality( 90 ); // JPEG quality (1 - 100)
+		webcam.set_shutter_sound( true ); // play shutter click sound
+	</script>
 
-  var streaming = false,
-      video        = document.querySelector('#video'),
-      canvas       = document.querySelector('#canvasbac'),
-      photo        = document.querySelector('#photo'),
-      startbutton  = document.querySelector('#startbutton'),
-      width = 320,
-      height = 0;
+	<!-- Next, write the movie to the page at 320x240 -->
+	<script language="JavaScript">
+		document.write( webcam.get_html(320, 320) );
+	</script>
 
-  navigator.getMedia = ( navigator.getUserMedia ||
-                         navigator.webkitGetUserMedia ||
-                         navigator.mozGetUserMedia ||
-                         navigator.msGetUserMedia);
+	<!-- Some buttons for controlling things -->
+	<br/><form method="POST">
+		<input type=button value="Configure..." onClick="webcam.configure()">
+		&nbsp;&nbsp;
+		<input type=button value="Take Snapshot" onClick="take_snapshot()">
+	</form>
 
-  navigator.getMedia(
-    {
-      video: true,
-      audio: false
-    },
-    function(stream) {
-      if (navigator.mozGetUserMedia) {
-        video.mozSrcObject = stream;
-      } else {
-        var vendorURL = window.URL || window.webkitURL;
-        video.src = vendorURL.createObjectURL(stream);
-      }
-      video.play();
-    },
-    function(err) {
-      console.log("An error occured! " + err);
-    }
-  );
+	<!-- Code to handle the server response (see test.php) -->
+	<script language="JavaScript">
+		webcam.set_hook( 'onComplete', 'my_completion_handler' );
 
-  video.addEventListener('canplay', function(ev){
-    if (!streaming) {
-      height = video.videoHeight / (video.videoWidth/width);
-      video.setAttribute('width', width);
-      video.setAttribute('height', height);
-      canvas.setAttribute('width', width);
-      canvas.setAttribute('height', height);
-      streaming = true;
-    }
-  }, false);
+		function take_snapshot() {
+			// take snapshot and upload to server
+			document.getElementById('upload_results').innerHTML = '<h1>Uploading...</h1>';
+			webcam.snap();
+		}
 
-  function takepicture() {
-    canvas.width = width;
-    canvas.height = height;
-    canvas.getContext('2d').drawImage(video, 0, 0, width, height);
-    var data = canvas.toDataURL('image/png');
-    photo.setAttribute('src', data);
-  }
+		function my_completion_handler(msg) {
+			if (msg.match(/(http\:\/\/\S+)/)) {
+				var image_url = RegExp.$1;
+				// show JPEG image in page
+				document.getElementById('upload_results').innerHTML =
+					'<h1>Upload Successful!</h1>' +
+					'<h3>JPEG URL: ' + image_url + '</h3>' +
+					'<img src="' + image_url + '">';
 
-  startbutton.addEventListener('click', function(ev){
-      takepicture();
-    ev.preventDefault();
-  }, false);
+				// reset camera for another shot
+				webcam.reset();
+			}
+			else alert("Python Error: " + msg);
+		}
+	</script>
 
-})();
-</script>
-
+	</td><td width=50>&nbsp;</td><td valign=top>
+		<div id="upload_results" style="background-color:#eee;"></div>
+	</td></tr></table>
 {% endblock %}
