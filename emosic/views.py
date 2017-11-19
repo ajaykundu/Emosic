@@ -23,17 +23,16 @@ class HomePage(TemplateView):
 
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
-
+from django.conf import settings
 
 @csrf_exempt
 def save_image(request):
-
-    if request.POST:
+    if request.body:
         f = open(settings.MEDIA_ROOT + '/webcamimages/someimage.jpeg','wb')
-        f.write(request.raw_post_data)
+        f.write(request.body)
         f.close()
         print('something found')
-        return HttpResponse(settings.MEDIA_ROOT+'/webcamimages/someimage.jpeg')
+        return HttpResponse('http://127.0.0.1:8000/media/webcamimages/someimage.jpg')
     else:
         print('not get any data.')
-        return render(request,'test.html')
+        return HttpResponse('no data')

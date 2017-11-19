@@ -15,11 +15,11 @@
 
 	<!-- Next, write the movie to the page at 320x240 -->
 	<script language="JavaScript">
-		document.write( webcam.get_html(320, 320) );
+		document.write( webcam.get_html(320, 240) );
 	</script>
 
 	<!-- Some buttons for controlling things -->
-	<br/><form method="POST">
+	<br/><form>
 		<input type=button value="Configure..." onClick="webcam.configure()">
 		&nbsp;&nbsp;
 		<input type=button value="Take Snapshot" onClick="take_snapshot()">
@@ -54,4 +54,4 @@
 	</td><td width=50>&nbsp;</td><td valign=top>
 		<div id="upload_results" style="background-color:#eee;"></div>
 	</td></tr></table>
-{% endblock %}
+	{% endblock %}
