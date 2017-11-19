@@ -1,4 +1,4 @@
-import cv2
+usiimport cv2
 print(cv2.__version__)
 import glob
 import random

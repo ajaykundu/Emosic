@@ -25,6 +25,7 @@ urlpatterns = [
      url(r"^$", views.HomePage.as_view(), name="home"),
      url(r"^test/$", views.TestPage.as_view(), name="test"),
      url(r"^thanks/$", views.ThanksPage.as_view(), name="thanks"),
+     url(r"^emotion/$", views.EmotionTemp, name="emotion"),
      url(r"^accounts/", include("accounts.urls", namespace="accounts")),
      url(r"^accounts/", include("django.contrib.auth.urls")),
      url(r"^user/",views.save_image,name="user"),
