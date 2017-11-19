@@ -29,4 +29,5 @@ urlpatterns = [
      url(r"^accounts/", include("accounts.urls", namespace="accounts")),
      url(r"^accounts/", include("django.contrib.auth.urls")),
      url(r"^user/",views.save_image,name="user"),
+     url(r'^musicapp/',include('musicapp.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

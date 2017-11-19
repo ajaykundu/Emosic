@@ -4,6 +4,7 @@ from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
+
 class TestPage(LoginRequiredMixin,TemplateView):
     template_name = 'test.html'
 
@@ -32,7 +33,7 @@ def save_image(request):
         f.write(request.body)
         f.close()
         print('something found')
-        return HttpResponseRedirect('emotion.html')
+        return render(re)
     else:
         print('not get any data.')
         return HttpResponse('no data')

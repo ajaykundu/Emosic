@@ -1,17 +1,24 @@
 from django.db import models
 
-COLOR_CHOICES = (
-    ('green','GREEN'),
-    ('blue', 'BLUE'),
-    ('red','RED'),
-    ('orange','ORANGE'),
-    ('black','BLACK'),
+EMOTION_CHOICES = (
+    ('fear','FEAR'),
+    ('contempt', 'CONTEMPT'),
+    ('anger','ANGER'),
+    ('sadness','SADNESS'),
+    ('surprise','SUPRIZE'),
+    ('neutral','NEUTRAL'),
+    ('disgust','DISGUST'),
+    ('happiness','HAPPINESS'),
 )
 
-Emotions = ['fear','contempt','anger','sadness','surprise','neutral','disgust','happiness']
 
-# Create your models here.
-class Song(model.Model):
-    name = model.CharField(max_length=125)
-    audio_file = model.FileField(upload_to='SongsFolder')
-    emotionAttached = models.CharField(max_length=6, choices=Emotions, default='green')
+
+# Create your models hereself.
+class Song(models.Model):
+    name = models.CharField(max_length=125)
+    audio_file = models.FileField(upload_to='SongsFolder')
+    emotionAttached = models.CharField(max_length=20, choices=EMOTION_CHOICES, default='green')
+
+    def __str__(self):
+        return self.name
+    
