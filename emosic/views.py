@@ -44,9 +44,12 @@ import http.client, urllib.request, urllib.parse, urllib.error, base64, sys
 import json
 from musicapp import views
 from musicapp.models import Song
+import shutil
+import random
+import string
+
 
 def EmotionTemp(request):
-
     songList = Song.objects.all()
 
     print('hello')
@@ -60,6 +63,7 @@ def EmotionTemp(request):
     pathtoImage = settings.MEDIA_ROOT + '/webcamimages/someimage.jpeg'
     pathtoImage = 'https://engineering.unl.edu/images/staff/Kayla_Person-small.jpg'
     print(pathtoImage)
+
     # Replace the example URL below with the URL of the image you want to analyze.
 
     body = "{ 'url': 'http://everydayshouldbefun.com/wp-content/uploads/2017/01/1435305770-36a7c3951a2bb484f033814ee652156a-600x398.jpg' }"
@@ -82,7 +86,13 @@ def EmotionTemp(request):
                 maxval = data[0]['scores'][emotion]
                 emotionfound = emotion
         print(emotionfound)
+        str = ''
+        str = str.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
+        shutil.copy(settings.MEDIA_ROOT + '/webcamimages/someimage.jpeg', settings.MEDIA_ROOT + '/webcamimages/'+emotionfound + str+'.jpeg')
+        print('Image created successfully')
         conn.close()
+        # copy an image in Database so that
+
     except Exception as e:
         print(e.args)
 
