@@ -1,4 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
   <h1>Hey Your are Feeling : {{emotionFoundtag}}</h1>
+
+  {% for ob in songlist %}
+
+  {% if ob.emotionAttached == emotionFoundtag %}
+  <h2>{{ob.name}}</h2>
+    <audio controls>
+         <source src="{{ ob.audio_file.url }}" type="audio/mpeg">
+      </audio>
+  {% endif %}
+  {% endfor %}
 {% endblock %}
