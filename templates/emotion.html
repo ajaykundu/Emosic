@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Hey Your are Feeling : {{emotionFoundtag}}</h1>
+   {% if emotionFoundtag %}
+   <h1 >Hey Your are current Emosion : {{emotionFoundtag}}</h1>
+   {% endif %}
 
+  {% if songlist %}
   {% for ob in songlist %}
 
   {% if ob.emotionAttached == emotionFoundtag %}
@@ -11,4 +14,12 @@
       </audio>
   {% endif %}
   {% endfor %}
+
+   <a href="https://www.youtube.com/results?search_query={{emotionFoundtag}}+songs"><button type="button" name="button">Search Youtube</button></a>
+    <a href="https://gaana.com/search/{{emotionFoundtag}}%20songs"><button type="button" name="button">Search Gaana</button></a>
+
+
+  {% endif %}
+
+
 {% endblock %}

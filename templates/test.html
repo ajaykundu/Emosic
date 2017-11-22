@@ -1,55 +1,70 @@
 {% extends "base.html" %}
 {% block content %}
-<table><tr><td valign=top>
-	<h1>JPEGCam Test Page</h1>
 
-	<!-- First, include the JPEGCam JavaScript Library -->
-	<script type="text/javascript" src="/static/jpegcam/webcam.js"></script>
+	  {% if flag %}
+     <img src="{{allprophoto.profilephoto.url}}" alt="">
+		 {% else %}
+		 <h1>upload you profile</h1>
+		{% endif %}
 
-	<!-- Configure a few settings -->
-	<script language="JavaScript">
-		webcam.set_api_url( '/user/' );
-		webcam.set_quality( 90 ); // JPEG quality (1 - 100)
-		webcam.set_shutter_sound( true ); // play shutter click sound
-	</script>
+<div class="camera1">
+	 <h1>{{user.username}}</h1>
 
-	<!-- Next, write the movie to the page at 320x240 -->
-	<script language="JavaScript">
-		document.write( webcam.get_html(320, 240) );
-	</script>
+	<table><tr><td valign=top>
+		<h1>JPEGCam Test Page</h1>
 
-	<!-- Some buttons for controlling things -->
-	<br/><form>
-		<input type=button value="Configure..." onClick="webcam.configure()">
-		&nbsp;&nbsp;
-		<input type=button value="Take Snapshot" onClick="take_snapshot()">
-	</form>
+		<!-- First, include the JPEGCam JavaScript Library -->
+		<script type="text/javascript" src="/static/jpegcam/webcam.js"></script>
 
-	<!-- Code to handle the server response (see test.php) -->
-	<script language="JavaScript">
-		webcam.set_hook( 'onComplete', 'my_completion_handler' );
+		<!-- Configure a few settings -->
+		<script language="JavaScript">
+			webcam.set_api_url( '/user/' );
+			webcam.set_quality( 90 ); // JPEG quality (1 - 100)
+			webcam.set_shutter_sound( true ); // play shutter click sound
+		</script>
 
-		function take_snapshot() {
-			// take snapshot and upload to server
-			document.getElementById('upload_results').innerHTML = '<h1>Uploading...</h1>';
-			webcam.snap();
-		}
+		<!-- Next, write the movie to the page at 320x240 -->
+		<script language="JavaScript">
+			document.write( webcam.get_html(320, 240) );
+		</script>
 
-		function my_completion_handler(msg) {
-			if (msg.match(/(http\:\/\/\S+)/)) {
-				var image_url = RegExp.$1;
-				// show JPEG image in page
-     window.location.href = "http://127.0.0.1:8000/emotion/";
-				document.getElementById('upload_results').innerHTML =
-					'<h2>Processing Your Image</h2>';
-				// reset camera for another shot
-				webcam.reset();
+		<!-- Some buttons for controlling things -->
+		<br/><form>
+			{# <input type=button value="Configure..." onClick="webcam.configure()">#}
+			&nbsp;&nbsp;
+			<input type=button value="Take Snapshot" onClick="take_snapshot()">
+		</form>
+
+		<!-- Code to handle the server response (see test.php) -->
+		<script language="JavaScript">
+			webcam.set_hook( 'onComplete', 'my_completion_handler' );
+
+			function take_snapshot() {
+				// take snapshot and upload to server
+				document.getElementById('upload_results').innerHTML = '<h1>Uploading...</h1>';
+				webcam.snap();
 			}
-			else alert("Python Error: " + msg);
-		}
-	</script>
 
-	</td><td width=50>&nbsp;</td><td valign=top>
-		<div id="upload_results" style="background-color:#eee;"></div>
-	</td></tr></table>
+			function my_completion_handler(msg) {
+				if (msg.match(/(http\:\/\/\S+)/)) {
+					var image_url = RegExp.$1;
+					// show JPEG image in page
+	     window.location.href = "http://127.0.0.1:8000/emotion/";
+					document.getElementById('upload_results').innerHTML =
+						'<h2>Processing Your Image</h2>';
+					// reset camera for another shot
+					webcam.reset();
+				}
+				else alert("Python Error: " + msg);
+			}
+		</script>
+
+		</td><td width=50>&nbsp;</td><td valign=top>
+			<div id="upload_results" style="background-color:#eee;"></div>
+		</td></tr></table>
+
+</div>
+
+
+
 	{% endblock %}

@@ -2,17 +2,32 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect,HttpResponse
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-
-
+from accounts.models import ProfilePic
+from django.shortcuts import render
 
 class TestPage(LoginRequiredMixin,TemplateView):
     template_name = 'test.html'
+    print('hello testpage')
+
+    def get(self, request, *args, **kwargs):
+        flag = False
+        photoobject = ''
+        for ob in ProfilePic.objects.all():
+            if request.user.username == ob.name.username:
+                flag = True
+                photoobject = ob
+
+        return render(request,'test.html',{'allprophoto': photoobject,'flag':flag})
+
 
 class ThanksPage(TemplateView):
     template_name = 'thanks.html'
 
+
+
 class HomePage(TemplateView):
     template_name = "index.html"
+
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated():
@@ -55,19 +70,21 @@ def EmotionTemp(request):
     print('hello')
     headers = {
         # Request headers. Replace the placeholder key below with your subscription key.
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/octet-stream',
         'Ocp-Apim-Subscription-Key': 'dc5a9336dc024bc69d4a4d49b481be47',
     }
     params = urllib.parse.urlencode({
     })
+    ImageInBinary = ''
     pathtoImage = settings.MEDIA_ROOT + '/webcamimages/someimage.jpeg'
-    pathtoImage = 'https://engineering.unl.edu/images/staff/Kayla_Person-small.jpg'
-    print(pathtoImage)
+    with open(pathtoImage, "rb") as imageFile:
+        f = imageFile.read()
+        ImageInBinary = bytearray(f)
 
     # Replace the example URL below with the URL of the image you want to analyze.
 
-    body = "{ 'url': 'http://everydayshouldbefun.com/wp-content/uploads/2017/01/1435305770-36a7c3951a2bb484f033814ee652156a-600x398.jpg' }"
-    emotionFound = ''
+    body = ImageInBinary
+    emotionfound = 'neutral'
     Emotions = ['fear','contempt','anger','sadness','surprise','neutral','disgust','happiness']
     try:
         # NOTE: You must use the same region in your REST call as you used to obtain your subscription keys.
