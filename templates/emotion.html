@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
    {% if emotionFoundtag %}
-   <h1 >Hey Your are current Emosion : {{emotionFoundtag}}</h1>
+   <h1 >Hey Your are current Emosion :</h1>
+   <img src="/static/emosis/{{emotionFoundtag}}.png" alt="">
    {% endif %}
 
   {% if songlist %}

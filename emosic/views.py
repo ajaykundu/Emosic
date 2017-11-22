@@ -84,8 +84,8 @@ def EmotionTemp(request):
     # Replace the example URL below with the URL of the image you want to analyze.
 
     body = ImageInBinary
-    emotionfound = 'neutral'
-    Emotions = ['fear','contempt','anger','sadness','surprise','neutral','disgust','happiness']
+    emotionfound = 'happiness'
+    Emotions = ['anger','sadness','neutral','happiness']
     try:
         # NOTE: You must use the same region in your REST call as you used to obtain your subscription keys.
         #   For example, if you obtained your subscription keys from westcentralus, replace "westus" in the
