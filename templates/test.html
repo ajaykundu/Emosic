@@ -1,22 +1,45 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="">
-			<h1>{{user.username}}</h1>
-			{% if flag %}
-			 <img src="{{allprophoto.profilephoto.url}}" alt="" style="height:300px;width:300px;">
-			{% else %}
-			<a href="{% url 'accounts:proPic' %}"><img src="/static/images/uploadphoto.png" alt="" style="height:300px;width:300px;"></a>
-		 {% endif %}
-    </div>
-<div class="camera1">
+<style>
 
+/********************************************************************************/
+</style>
 
-	<table><tr><td valign=top>
-		<h1>JPEGCam Test Page</h1>
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <h2 style="text-align:center;color:#D9E2D5;">User Profile</h2>
+  <!--profile box-->
+  <div class="card">
+    {% if flag %}
+     <img src="{{allprophoto.profilephoto.url}}" alt="" style="height:150px;width:150px;border-radius:50%;">
+    {% else %}
+    <a href="{% url 'accounts:proPic' %}"><img src="/static/images/uploadphoto.png" alt="" style="height:150px;width:150px;border-radius:50%;"></a>
+    {% endif %}
+      <h1 style="color:#EAEFE8;">{{user.username}}</h1>
+      <p class="title">EMAIL id</p>
+      <div style="margin: 24px 0;">
+      <a href="#"><i class="fa fa-facebook"></i></a>
+  </div>
+
+  </div>
+ <!--end profile box-->
+</div>
+
+<span style="font-size:30px;cursor:pointer;position:relative;color:#fff;text-shadow: 2px 2px 4px #000000;margin-left:50px;" onclick="openNav()"><i class="fa fa-user"  style="color:#fff;text-shadow: 2px 2px 4px #000000;" aria-hidden="true"></i> User Profile</span>
+<!--side nav ends---->
+
+<div class="container-fluid">
+<div class="row">
+<!--col1-->
+<div class="col-sm-12" style="padding-left:70px;padding-top:30px;">
+<center><div id="camera1">
+  <table><tr><td valign=top>
+
 
 		<!-- First, include the JPEGCam JavaScript Library -->
 		<script type="text/javascript" src="/static/jpegcam/webcam.js"></script>
 
+    <br/><form>
 		<!-- Configure a few settings -->
 		<script language="JavaScript">
 			webcam.set_api_url( '/user/' );
@@ -26,14 +49,14 @@
 
 		<!-- Next, write the movie to the page at 320x240 -->
 		<script language="JavaScript">
-			document.write( webcam.get_html(320, 240) );
+			document.write( webcam.get_html(500, 400) );
 		</script>
 
 		<!-- Some buttons for controlling things -->
-		<br/><form>
+
 			{# <input type=button value="Configure..." onClick="webcam.configure()">#}
-			&nbsp;&nbsp;
-			<input type=button value="Take Snapshot" onClick="take_snapshot()">
+    <br/>
+			<center><input type=button value="TAKE SNAPSHOT" onClick="take_snapshot()" style="margin-top:20px;"></center>
 		</form>
 
 		<!-- Code to handle the server response (see test.php) -->
@@ -42,8 +65,9 @@
 
 			function take_snapshot() {
 				// take snapshot and upload to server
-				document.getElementById('upload_results').innerHTML = '<h1>Uploading...</h1>';
-				webcam.snap();
+				//document.getElementById('upload_results').innerHTML = '<h1>Uploading...</h1>';
+          document.getElementById('upload_results').innerHTML = '<div class="loader"></div>';
+        webcam.snap();
 			}
 
 			function my_completion_handler(msg) {
@@ -52,7 +76,7 @@
 					// show JPEG image in page
 	     window.location.href = "http://127.0.0.1:8000/emotion/";
 					document.getElementById('upload_results').innerHTML =
-						'<h2>Processing Your Image</h2>';
+						'<div class="loader"></div>';
 					// reset camera for another shot
 					webcam.reset();
 				}
@@ -64,8 +88,20 @@
 			<div id="upload_results" style="background-color:#eee;"></div>
 		</td></tr></table>
 
-</div>
+ </div></center>
+</div><!--end of col1-->
 
 
+</div><!--end of row--->
+</div><!--end of container fluid-->
 
+<script>
+function openNav() {
+    document.getElementById("mySidenav").style.width = "100%";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
+</script>
 	{% endblock %}

@@ -7,7 +7,7 @@
 	<link rel="icon" type="image/vnd.microsoft.icon" href="{% static 'images/music_icon.ico' %}">
 	<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	{# <link href="{% static 'css/style.css' %}" rel="stylesheet">#}
+	<link href="{% static 'css/style.css' %}" rel="stylesheet">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 </head>
@@ -17,17 +17,17 @@
   <div id="bg"></div>
 
   <div class="topnav">
-  	<a class="active" href="{% url 'home' %}"><img src="{% static 'images/music_icon.ico' %}" style="height:50px;width:50px;"></a>
+  	<a class="active" href="{% url 'home' %}"><i class="fa fa-music" aria-hidden="true" style="font-size:40px;"></i></a>
 
     {% if user.is_authenticated %}
-  <a href="{% url 'accounts:logout' %}" >LogOut</a>
+    <a href="{% url 'accounts:logout' %}" >LogOut</a>
     {% else %}
     {% endif %}
-   <a href="#about">About Emosic</a>
+    <a href="#about">About Emosic</a>
   </div>
 
-  <h1 style="color:#fff;text-align:center;font-size:64px;font-family:Broadway;text-shadow: 2px 2px 4px #000000;">EMOSIC</h1>
-  <h4 style="color:#fff;text-align:center;position:relative;text-shadow: 2px 2px 4px #000000;">Get Songs at your Face Tips</h4>
+
+
  </br>
 
   {% block content %}
