@@ -1,4 +1,9 @@
 {% extends "base.html" %}
+
+{% block userProfileBlock %}
+  <span style="font-size:16px;cursor:pointer;position:relative;color:#fff;text-shadow: 2px 2px 4px #000000;margin-top:15px;float:right;" onclick="openNav()"><i class="fa fa-user"  style="color:#fff;text-shadow: 2px 2px 4px #000000;" aria-hidden="true"></i> User Profile</span>
+{% endblock %}
+
 {% block content %}
 <style>
 
@@ -16,16 +21,16 @@
     <a href="{% url 'accounts:proPic' %}"><img src="/static/images/uploadphoto.png" alt="" style="height:150px;width:150px;border-radius:50%;"></a>
     {% endif %}
       <h1 style="color:#EAEFE8;">{{user.username}}</h1>
-      <p class="title">EMAIL id</p>
+      <p class="title">{{user.email}}</p>
       <div style="margin: 24px 0;">
-      <a href="#"><i class="fa fa-facebook"></i></a>
+      <a href="https://mail.google.com" style="margin-left:-15px;"><i class="fa fa-google-plus-official" aria-hidden="true"></i></a>
   </div>
 
   </div>
  <!--end profile box-->
 </div>
 
-<span style="font-size:30px;cursor:pointer;position:relative;color:#fff;text-shadow: 2px 2px 4px #000000;margin-left:50px;" onclick="openNav()"><i class="fa fa-user"  style="color:#fff;text-shadow: 2px 2px 4px #000000;" aria-hidden="true"></i> User Profile</span>
+
 <!--side nav ends---->
 
 <div class="container-fluid">

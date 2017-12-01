@@ -5,7 +5,7 @@ import random
 import numpy as np
 
 SIZE_FACE=48
-EMOTIONS = ['angry', 'happy', 'sad']#emotion list
+EMOTIONS = ['angry', 'happy', 'sad','neutral']#emotion list
 fishface = cv2.face.LBPHFaceRecognizer_create()#Initialize fisher face classifier
 
 data = {}
@@ -14,9 +14,7 @@ def get_data(): #Define function to get file list, randomly shuffle it and split
     images=np.load('data_train.npy')
     labels= np.load('labels_train.npy')
     images_test = np.load('data_test.npy')
-    images_test = images_test[:300]
     labels_test = np.load('labels_test.npy')
-    labels_test = labels_test[:300]
     images=images.reshape([-1, SIZE_FACE, SIZE_FACE, 1])
     images_test = images_test.reshape([-1, SIZE_FACE, SIZE_FACE, 1])
     return images,labels,images_test,labels_test

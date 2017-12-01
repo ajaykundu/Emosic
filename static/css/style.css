@@ -45,9 +45,9 @@ body {margin:0;}
 }
 
 .topnav a.active {
-  background-color: tranparent;
+  background-color: transparent;
   color:#136BC3;
-  text-shadow: text-shadow: 2px 2px 5px red;;
+  text-shadow: 2px 2px 5px red;
 	float:left;
 	padding:5px;
 	margin-left:20px;
@@ -55,12 +55,11 @@ body {margin:0;}
 }
 .topnav a.active:hover
 { border-radius:50%;
-
 }
 .topnav a.active i:hover
 {
-  
-  opacity:0.9;
+  col
+  opacity:0.2;
 }
 
 
@@ -243,9 +242,9 @@ boder-radius:50%;
   border-radius: 50%;
   background-color:transparent;
   border-top: 16px solid #54D518;
-  border-right: 16px solid ;
-  border-bottom: 16px solid ;
-  border-left: 16px solid ;
+  border-right: 16px solid #22EBD5;
+  border-bottom: 16px solid #0D1FDA;
+  border-left: 16px solid #D91FF3;
   width: 120px;
   height: 120px;
   -webkit-animation: spin 2s linear infinite;
@@ -320,3 +319,7 @@ boder-radius:50%;
   .sidenav a {font-size: 18px;}
 }
 /********************************************************************************/
+span:hover
+{
+
+}

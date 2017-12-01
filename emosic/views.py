@@ -82,13 +82,15 @@ data = {}
 def get_data(): #Define function to get file list, randomly shuffle it and split 80/20
     images=np.load('data_train.npy')
     labels= np.load('labels_train.npy')
+    print(length(labels))
     images_test = np.load('data_test.npy')
     images_test = images_test[:300]
     labels_test = np.load('labels_test.npy')
+    print(labels_test)
     labels_test = labels_test[:300]
     images=images.reshape([-1, SIZE_FACE, SIZE_FACE, 1])
     images_test = images_test.reshape([-1, SIZE_FACE, SIZE_FACE, 1])
-    return images,labels,images_test,labels_test
+    # return images,labels,images_test,labels_test
 
 
 def run_recognizer():
@@ -129,7 +131,7 @@ def EmotionTemp(request):
 
     print('hello')
     headers = {
-        # Request headers. Replace the placeholder key below with your subscription key.
+       
         'Content-Type': 'application/octet-stream',
         'Ocp-Apim-Subscription-Key': 'dc5a9336dc024bc69d4a4d49b481be47',
     }
@@ -141,27 +143,35 @@ def EmotionTemp(request):
         f = imageFile.read()
         ImageInBinary = bytearray(f)
 
-    # Replace the example URL below with the URL of the image you want to analyze.
-
+    
     body = ImageInBinary
     emotionfound = 'happiness'
+    Songindex = 1
     Emotions = ['anger','sadness','neutral','happiness']
     try:
-        # NOTE: You must use the same region in your REST call as you used to obtain your subscription keys.
-        #   For example, if you obtained your subscription keys from westcentralus, replace "westus" in the
-        #   URL below with "westcentralus".
+       
         conn = http.client.HTTPSConnection('westus.api.cognitive.microsoft.com')
         conn.request("POST", "/emotion/v1.0/recognize?%s" % params, body, headers)
         response = conn.getresponse()
         data = response.read()
         my_json = data.decode('utf8')
         data = json.loads(my_json)
-        print(data)
+        # print(data)
         maxval = 0
         for emotion in Emotions:
-            if maxval < data[0]['scores'][emotion]:
-                maxval = data[0]['scores'][emotion]
+
+            val = data[0]['scores'][emotion]
+            print(val)
+            if emotion == 'anger':
+                    val = val * 4
+            if emotion == 'sadness':
+                    val = val * 4
+            print(emotion)
+            print(val)
+            if maxval < val:
+                maxval = val
                 emotionfound = emotion
+
         print(emotionfound)
         str = ''
         str = str.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
@@ -173,4 +183,4 @@ def EmotionTemp(request):
     except Exception as e:
         print(e.args)
 
-    return render(request,'emotion.html',{'emotionFoundtag':emotionfound,'songlist':songList})
+    return render(request,'emotion.html',{'emotionFoundtag':emotionfound,'songlist':songList,'Songindex': Songindex})

@@ -1,4 +1,8 @@
 {% extends "base.html" %}
+{% block userProfileBlock %}
+  <span style="font-size:16px;cursor:pointer;position:relative;color:#fff;text-shadow: 2px 2px 4px #000000;margin-top:15px;float:right;" onclick="openNav()"><i class="fa fa-user"  style="color:#fff;text-shadow: 2px 2px 4px #000000;" aria-hidden="true"></i> User Profile</span>
+{% endblock %}
+
 {% block content %}
 
 <div id="mySidenav" class="sidenav">
@@ -20,14 +24,13 @@
  <!--end profile box-->
 </div>
 
-<span style="font-size:30px;cursor:pointer;position:relative;color:#fff;text-shadow: 2px 2px 4px #000000;margin-left:50px;" onclick="openNav()"><i class="fa fa-user"  style="color:#fff;text-shadow: 2px 2px 4px #000000;" aria-hidden="true"></i></span>
 <!--side nav ends---->
 
 <div class="container-fluid">
 <div class="row">
   <div class="col-sm-6">
-   {% if emotionFoundtag %}
-   <center><h2 style="display:inline;color:#E3EEDF;text-shadow: 2px 2px 4px #000000;">Hey!! Your are :</h2>
+    {% if emotionFoundtag %}
+     <center><h2 style="display:inline;color:#E3EEDF;text-shadow: 2px 2px 4px #000000;">Hey!! Your are :</h2> 
    <img src="/static/emosis/{{emotionFoundtag}}.png" alt="" style="position:relative;display:inline;height:60px;width:60px;"></center>
    {% endif %}
  </br>
@@ -40,7 +43,7 @@
 
   {% if ob.emotionAttached == emotionFoundtag %}
 
-    <audio controls style="position:relative;display:inline;margin-right:5px;">
+    <audio controls style="position:relative;display:inline;margin-right:5px;border-radius:3px;background-color:#737970;">
          <source src="{{ ob.audio_file.url }}" type="audio/mpeg">
     </audio>
     <h4 style="position:relative;color:#E3EEDF;text-shadow: 2px 2px 4px #000000;display:inline;">{{ob.name}}</h4>

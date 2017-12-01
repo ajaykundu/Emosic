@@ -17,13 +17,18 @@
   <div id="bg"></div>
 
   <div class="topnav">
-  	<a class="active" href="{% url 'home' %}"><i class="fa fa-music" aria-hidden="true" style="font-size:40px;"></i></a>
+  	<a class="active" href="{% url 'home' %}"><i class="fa fa-music" aria-hidden="true" style="font-size:40px;color:#fff;"></i></a>
 
     {% if user.is_authenticated %}
+
     <a href="{% url 'accounts:logout' %}" >LogOut</a>
+    {% block userProfileBlock %}
+
+    {% endblock %}
     {% else %}
     {% endif %}
     <a href="#about">About Emosic</a>
+
   </div>
 
 
