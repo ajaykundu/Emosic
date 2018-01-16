@@ -54,6 +54,8 @@ def emotion_to_int(x):
     return 1
   elif x==4:
     return 2
+  elif x==6:
+    return 3
 
 def flip_image(image):
     return cv2.flip(image, 1)

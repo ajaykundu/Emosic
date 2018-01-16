@@ -55,6 +55,8 @@ def emotion_to_int(x):
       return 1
     elif x==4:
      return 2
+    elif x==6:
+     return 3
 
 def flip_image(image):
     return cv2.flip(image, 1)
@@ -75,7 +77,7 @@ images = []
 index = 1
 total = data.shape[0]
 for index, row in data.iterrows():
-  if row['emotion']==0 or row['emotion']==3 or row['emotion']==4:
+  if row['emotion']==0 or row['emotion']==3 or row['emotion']==4 or row['emotion']==6:
     emotion = emotion_to_int(row['emotion'])
     print(emotion)
     image = data_to_image(row['pixels'])
